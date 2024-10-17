@@ -23,6 +23,22 @@ const Manage = ({ navigation, route }) => {
             setNotes(data);
         }
     }, [route.params?.notes, data]);
+    const handleDelete = async (selectedId) => {
+        const updatedNotes = notes.filter((item) => item.id !== selectedId);
+        try {
+            const response = await fetch(
+                `https://6710cfdca85f4164ef2f6c45.mockapi.io/api/notes/${selectedId}`,
+                {
+                    method: "DELETE",
+                }
+            );
+            if (!response.ok) throw new Error("Delete failed");
+            setNotes(updatedNotes);
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
     return (
         <SafeAreaView style={{ padding: 20, alignItems: "center" }}>
             <View
@@ -81,7 +97,12 @@ const Manage = ({ navigation, route }) => {
                                 {note.content}
                             </Text>
                             <View style={{ flexDirection: "row", gap: 10 }}>
-                                <Text style={{ color: "red" }}>Delete</Text>
+                                <Text
+                                    style={{ color: "red" }}
+                                    onPress={() => handleDelete(note.id)}
+                                >
+                                    Delete
+                                </Text>
                                 <Text
                                     style={{ color: "orange" }}
                                     onPress={() =>
