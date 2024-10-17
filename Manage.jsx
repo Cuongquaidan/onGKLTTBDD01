@@ -6,20 +6,23 @@ import {
     Image,
     TextInput,
 } from "react-native";
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { useAuth } from "./context/authContext";
-const notes = [
-    {
-        id: 1,
-        content: "Play football",
-    },
-    {
-        id: 2,
-        content: "Play game",
-    },
-];
+import useGetFetchData from "./hooks/useGetFetchData";
+
 const Manage = ({ navigation, route }) => {
+    const [notes, setNotes] = useState([]);
+    const { data, error } = useGetFetchData(
+        "https://6710cfdca85f4164ef2f6c45.mockapi.io/api/notes"
+    );
     const { user, setUser } = useAuth();
+    useEffect(() => {
+        if (route.params?.notes) {
+            setNotes(route.params.notes);
+        } else if (data) {
+            setNotes(data);
+        }
+    }, [route.params?.notes, data]);
     return (
         <SafeAreaView style={{ padding: 20, alignItems: "center" }}>
             <View
