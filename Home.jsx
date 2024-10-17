@@ -7,9 +7,9 @@ import {
     Pressable,
 } from "react-native";
 import { useState } from "react";
-
-const Home = () => {
-    const [username, setUsername] = useState("");
+import { useAuth } from "./context/authContext";
+const Home = ({ navigation }) => {
+    const { user, setUser } = useAuth();
     return (
         <SafeAreaView style={{ display: "flex", alignItems: "center" }}>
             <Image
@@ -28,8 +28,8 @@ const Home = () => {
                 MANAGE YOUR TASK
             </Text>
             <TextInput
-                value={username}
-                onChangeText={(value) => setUsername(value)}
+                value={user}
+                onChangeText={(value) => setUser(value)}
                 style={{
                     borderWidth: 1,
                     padding: 10,
@@ -46,6 +46,7 @@ const Home = () => {
                     backgroundColor: "#00BDD6",
                     color: "white",
                 }}
+                onPress={() => navigation.navigate("Manage")}
             >
                 GET STARTED
             </Pressable>

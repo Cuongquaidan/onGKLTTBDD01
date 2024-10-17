@@ -8,7 +8,9 @@ import {
 } from "react-native";
 import React from "react";
 
+import { useAuth } from "./context/authContext";
 const Add = () => {
+    const { user, setUser } = useAuth();
     return (
         <SafeAreaView style={{ padding: 20, alignItems: "center" }}>
             <View
@@ -34,7 +36,7 @@ const Add = () => {
                         }}
                     ></Image>
                     <View>
-                        <Text style={{ fontWeight: 600 }}>Hi Name</Text>
+                        <Text style={{ fontWeight: 600 }}>Hi {user}</Text>
                         <Text>have a great day a head</Text>
                     </View>
                 </View>
