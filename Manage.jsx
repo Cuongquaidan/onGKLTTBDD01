@@ -82,12 +82,23 @@ const Manage = ({ navigation, route }) => {
                             </Text>
                             <View style={{ flexDirection: "row", gap: 10 }}>
                                 <Text style={{ color: "red" }}>Delete</Text>
-                                <Text style={{ color: "orange" }}>Update</Text>
+                                <Text
+                                    style={{ color: "orange" }}
+                                    onPress={() =>
+                                        navigation.navigate("Add", {
+                                            notes,
+                                            note,
+                                        })
+                                    }
+                                >
+                                    Update
+                                </Text>
                             </View>
                         </View>
                     ))}
                 </View>
                 <Pressable
+                    onPress={() => navigation.navigate("Add", { notes })}
                     style={{
                         backgroundColor: "#00BDD6",
                         width: 50,
